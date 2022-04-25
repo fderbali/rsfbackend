@@ -13,7 +13,7 @@ class CreateAnnonceTable extends Migration
      */
     public function up()
     {
-        Schema::create('annonce', function (Blueprint $table) {
+        Schema::create('annonces', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('title');
