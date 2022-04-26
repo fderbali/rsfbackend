@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 class AnnonceController extends Controller
 {
     public function firstAction(){
-
-        
-
+      
         $user = User::find(1);
         $annonces = $user->annonces;
 
