@@ -20,6 +20,7 @@ class CreateBlacklistTable extends Migration
         });
     }
 
+
     /**
      * Reverse the migrations.
      *
