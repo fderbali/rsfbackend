@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableTrainings extends Migration
+class CreateTrainingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -21,7 +21,6 @@ class CreateTableTrainings extends Migration
             $table->enum('level', ['junior', 'middle', 'senior']);
             $table->string('location');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -33,6 +32,8 @@ class CreateTableTrainings extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('trainings');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

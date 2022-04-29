@@ -18,7 +18,6 @@ class CreateEvaluationsTable extends Migration
             $table->float('note');//peut-on faire cela?
             $table->tinyText('remark');
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
@@ -30,6 +29,8 @@ class CreateEvaluationsTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('evaluations');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableDevis extends Migration
+class CreateEstimatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,7 +17,6 @@ class CreateTableDevis extends Migration
             $table->id();
             $table->float('price');
             $table->unsignedBigInteger('demand_id');
-            $table->foreign('demand_id')->references('id')->on('demands');
             $table->timestamps();
         });
     }
@@ -29,6 +28,8 @@ class CreateTableDevis extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('estimates');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

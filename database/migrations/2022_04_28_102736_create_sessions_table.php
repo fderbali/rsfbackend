@@ -18,7 +18,6 @@ class CreateSessionsTable extends Migration
             $table->dateTimeTz('start', $precision = 2);
             $table->dateTimeTz('end', $precision = 2);
             $table->unsignedBigInteger('training_id');
-            $table->foreign('training_id')->references('id')->on('trainings');
             $table->timestamps();
         });
     }
@@ -30,6 +29,8 @@ class CreateSessionsTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('sessions');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnnonceTable extends Migration
+class CreateAnnouncesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,10 +15,9 @@ class CreateAnnonceTable extends Migration
     {
         Schema::create('announces', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->string('title');
             $table->text('description');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }
@@ -30,6 +29,8 @@ class CreateAnnonceTable extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('announces');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

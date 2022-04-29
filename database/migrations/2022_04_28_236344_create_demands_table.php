@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableDemands extends Migration
+class CreateDemandsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,9 +17,7 @@ class CreateTableDemands extends Migration
             $table->id();
             $table->enum('status', ['initiated', 'confirmed', 'cancelled']);
             $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('training_id');
-            $table->foreign('training_id')->references('id')->on('trainings');
             $table->timestamps();
         });
     }
@@ -31,6 +29,8 @@ class CreateTableDemands extends Migration
      */
     public function down()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('demands');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }
