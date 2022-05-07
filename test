@@ -1,0 +1,4 @@
+Schema::create('blacklists_teacher', function (Blueprint $table) {
+            $table->id();
+            $table->string('email');
+            $table->timestamps();

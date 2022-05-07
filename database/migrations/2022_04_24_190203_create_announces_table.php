@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBlacklistTable extends Migration
+class CreateAnnouncesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateBlacklistTable extends Migration
      */
     public function up()
     {
-        Schema::create('blacklist', function (Blueprint $table) {
+        Schema::create('announces', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
+            $table->string('title');
+            $table->text('description');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -26,6 +29,8 @@ class CreateBlacklistTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blacklist');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::dropIfExists('announces');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }

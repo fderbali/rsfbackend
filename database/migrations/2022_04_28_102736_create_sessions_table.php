@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnnonceTable extends Migration
+class CreateSessionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,12 @@ class CreateAnnonceTable extends Migration
      */
     public function up()
     {
-        Schema::create('annonces', function (Blueprint $table) {
+        Schema::create('sessions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->string('title');
-            $table->text('description');
+            $table->dateTimeTz('start', $precision = 2);
+            $table->dateTimeTz('end', $precision = 2);
+            $table->unsignedBigInteger('training_id');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -30,6 +29,8 @@ class CreateAnnonceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('annonce');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0');
+        Schema::dropIfExists('sessions');
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1');
     }
 }
