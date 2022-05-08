@@ -13,7 +13,7 @@ class CreateTableBlacklistedusers extends Migration
      */
     public function up()
     {
-        Schema::create('table_blacklistedusers', function (Blueprint $table) {
+        Schema::create('blacklistedusers', function (Blueprint $table) {
             $table->id();
             $table->string("email");
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateTableBlacklistedusers extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_blacklistedusers');
+        Schema::dropIfExists('blacklistedusers');
     }
 }
