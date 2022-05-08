@@ -17,3 +17,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/create/training', [TrainingController::class, 'create']);
+Route::get('/training', [TrainingController::class, 'index']);
