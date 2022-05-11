@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -15,9 +16,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::post('/training/create', [TrainingController::class, 'store']);
-Route::get('/training', [TrainingController::class, 'index']);
-Route::delete('/training/{training}', [TrainingController::class, 'delete']);
-Route::put('/training/{training}', [TrainingController::class, 'update']);
-Route::get('/training/{training}', [TrainingController::class, 'show']);
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/training/create', [TrainingController::class, 'store']);
+    Route::get('/training', [TrainingController::class, 'index']);
+    Route::delete('/training/{training}', [TrainingController::class, 'delete']);
+    Route::put('/training/{training}', [TrainingController::class, 'update']);
+    Route::get('/training/{training}', [TrainingController::class, 'show']);
+});
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
