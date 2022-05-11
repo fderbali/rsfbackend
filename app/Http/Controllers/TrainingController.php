@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class TrainingController extends Controller
 {
-    public function create(trainingRequest $trainingRequest) {
+    public function store(trainingRequest $trainingRequest) {
         /*if(
         Training::create([
             "title" => $trainingRequest->title,
@@ -31,8 +31,20 @@ class TrainingController extends Controller
         }
     }
     public function index(){
-        $trainings = Training::all();
+        $trainings = Training::paginate(2);
         return response()->json($trainings);
+    }
+    public function delete(Training $training) {
+        $training->delete();
+        return response()->json(["success"=>true]);
+    }
+    public function update(trainingRequest $trainingRequest, Training $training){
+        $training->update($trainingRequest->all());
+        return response()->json(["success"=>true]);
+    }
+
+    public function show(Training $training) {
+        return response()->json($training);
     }
 
 }

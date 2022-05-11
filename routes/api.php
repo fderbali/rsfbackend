@@ -16,5 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/create/training', [TrainingController::class, 'create']);
+Route::post('/training/create', [TrainingController::class, 'store']);
 Route::get('/training', [TrainingController::class, 'index']);
+Route::delete('/training/{training}', [TrainingController::class, 'delete']);
+Route::put('/training/{training}', [TrainingController::class, 'update']);
+Route::get('/training/{training}', [TrainingController::class, 'show']);
