@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DemandController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -32,4 +33,10 @@ Route::get('/category', [CategoryController::class, 'index']);
 Route::delete('/category/{category}', [CategoryController::class, 'delete']);
 Route::put('/category/{category}', [CategoryController::class, 'update']);
 Route::get('/category/{category}', [CategoryController::class, 'show']);
+
+Route::post('/demand/create', [DemandController::class, 'store']);
+Route::get('/demand', [DemandController::class, 'index']);
+Route::delete('/demand/{demand}', [DemandController::class, 'delete']);
+Route::put('/demand/{demand}', [DemandController::class, 'update']);
+Route::get('/demand/{demand}', [DemandController::class, 'show']);
 
