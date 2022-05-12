@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\CategoryController;
 
@@ -17,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::post('/training/create', [TrainingController::class, 'store']);
 Route::get('/training', [TrainingController::class, 'index']);
 Route::delete('/training/{training}', [TrainingController::class, 'delete']);
@@ -28,3 +32,4 @@ Route::get('/category', [CategoryController::class, 'index']);
 Route::delete('/category/{category}', [CategoryController::class, 'delete']);
 Route::put('/category/{category}', [CategoryController::class, 'update']);
 Route::get('/category/{category}', [CategoryController::class, 'show']);
+
