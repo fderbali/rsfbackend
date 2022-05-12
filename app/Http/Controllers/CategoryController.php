@@ -18,17 +18,17 @@ class CategoryController extends Controller
     }
 
     public function index(){
-        $trainings = Category::paginate(2);
+        $categories = Category::paginate(2);
         return response()->json($categories);
     }
 
     public function delete(Category $category) {
-        $training->delete();
+        $category->delete();
         return response()->json(["success"=>true]);
     }
 
     public function update(categoryRequest $categoryRequest, Category $category){
-        $training->update($categoryRequest->all());
+        $category->update($categoryRequest->all());
         return response()->json(["success"=>true]);
     }
 
