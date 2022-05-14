@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DemandController;
+use App\Http\Controllers\SessionController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,7 +29,7 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
 // c'est pour ça qu'on met cette route en dehors du middleware auth:sanctum
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function () {
+// Route::middleware('auth:sanctum')->group(function () {
     // Trainings
     Route::post('/training/create', [TrainingController::class, 'store']);
     Route::delete('/training/{training}', [TrainingController::class, 'delete']);
@@ -45,8 +46,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/demand/{demand}', [DemandController::class, 'update']);
     Route::get('/demand/{demand}', [DemandController::class, 'show']);
 
+    // Sessions
+    Route::post('/session/create', [SessionController::class, 'store']);
+    Route::get('/session', [SessionController::class, 'index']);
+    Route::delete('/session/{session}', [SessionController::class, 'delete']);
+    Route::put('/session/{session}', [SessionController::class, 'update']);
+    Route::get('/session/{session}', [SessionController::class, 'show']);
+
     // Logout
     Route::post('/logout', [AuthController::class, 'logout']);
-});
+// });
 
 
