@@ -28,7 +28,7 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
 // c'est pour ça qu'on met cette route en dehors du middleware auth:sanctum
 Route::post('/login', [AuthController::class, 'login']);
 
-Route::middleware('auth:sanctum')->group(function () {
+//Route::middleware('auth:sanctum')->group(function () {
     // Trainings
     Route::post('/training/create', [TrainingController::class, 'store']);
     Route::delete('/training/{training}', [TrainingController::class, 'delete']);
@@ -47,6 +47,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Logout
     Route::post('/logout', [AuthController::class, 'logout']);
-});
+//});
 
 
