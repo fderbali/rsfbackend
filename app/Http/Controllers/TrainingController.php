@@ -31,7 +31,7 @@ class TrainingController extends Controller
         }
     }
     public function index(){
-        $trainings = Training::paginate(2);
+        $trainings = Training::paginate(4);
         return response()->json($trainings);
     }
     public function delete(Training $training) {
