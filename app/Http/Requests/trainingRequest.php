@@ -26,7 +26,7 @@ class trainingRequest extends FormRequest
         return [
             "title" => "required|max:25",
             "description" => "required",
-            "thumbnail" => "required",
+            "thumbnail" => "required|file|image|max:5000",
             "level" => "required",
             "location" => "required",
             "user_id" => "required|integer",
