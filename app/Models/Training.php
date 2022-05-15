@@ -9,4 +9,13 @@ class Training extends Model
 {
     use HasFactory;
     protected $guarded=["create_at","updated_at"];
+
+    public function demands(){
+        return $this->hasMany(Demand::class);
+    }
+
+    // Prof
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
