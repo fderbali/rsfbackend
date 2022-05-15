@@ -41,4 +41,8 @@ class User extends Authenticatable
     public function annonces(){
         return $this->hasMany(Annonce::class);
     }
+
+    public function demands(){
+        return $this->hasMany(Demand::class);
+    }
 }

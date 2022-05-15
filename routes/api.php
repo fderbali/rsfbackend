@@ -46,6 +46,7 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
     Route::delete('/demand/{demand}', [DemandController::class, 'delete']);
     Route::put('/demand/{demand}', [DemandController::class, 'update']);
     Route::get('/demand/{demand}', [DemandController::class, 'show']);
+    Route::get('/demand/user/{user}', [DemandController::class, 'getDemandsByUser']);
 
     // Sessions
     Route::post('/session/create', [SessionController::class, 'store']);
