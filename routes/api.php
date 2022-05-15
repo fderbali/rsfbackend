@@ -21,13 +21,14 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::get('/training', [TrainingController::class, 'index']);
 Route::get('/training/{training}', [TrainingController::class, 'show']);
 Route::get('/category', [CategoryController::class, 'index']);
 Route::get('/category/{category}', [CategoryController::class, 'show']);
 // L'utilisateur quand il arrive au début il est forcément pas authentifié,
 // c'est pour ça qu'on met cette route en dehors du middleware auth:sanctum
-Route::post('/login', [AuthController::class, 'login']);
+
 
 // Route::middleware('auth:sanctum')->group(function () {
     // Trainings
@@ -55,7 +56,8 @@ Route::post('/login', [AuthController::class, 'login']);
 
     // Logout
     Route::post('/logout', [AuthController::class, 'logout']);
-
+    Route::post('/user/create', [AuthController::class, 'create']);
+    Route::post('/login', [AuthController::class, 'login']);
 // });
 
 
