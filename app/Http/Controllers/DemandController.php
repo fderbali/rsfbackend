@@ -11,8 +11,9 @@ class DemandController extends Controller
 {
     public function store(demandRequest $demandRequest) {
 
-        if(demand::create($demandRequest->all())) {
-            return response()->json(["success"=>true]);
+        $demand = demand::create($demandRequest->all());
+        if($demand) {
+            return response()->json($demand);
         } else {
             return response()->json(["success"=>false]);
         }
