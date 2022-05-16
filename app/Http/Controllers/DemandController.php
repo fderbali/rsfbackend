@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\DemandCreated;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\demandRequest;
@@ -40,6 +41,10 @@ class DemandController extends Controller
 
     public function show(Demand $demand) {
         return response()->json($demand);
+    }
+
+    public function getDemandsByUser(User $user){
+        return response()->json($user->demands);
     }
 
 }
