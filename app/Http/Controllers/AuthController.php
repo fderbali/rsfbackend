@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,7 +14,7 @@ class AuthController extends Controller
 {
     public function login(LoginRequest $loginRequest) {
         if(!Auth::attempt($loginRequest->only(["email", "password"]))){
-            return response()->json(["success"=>false]);
+            return response()->json(["success"=>false], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         else {
             $loginRequest->session()->regenerate();
