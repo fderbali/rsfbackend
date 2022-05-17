@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\DemandCreated;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\demandRequest;
@@ -47,5 +48,13 @@ class DemandController extends Controller
         return response()->json($user->demands);
     }
 
+    public function getDemandsByProf(User $user){
+        $trainings = $user->trainings;
+        $demands = new Collection();
+        foreach ($trainings as $training){
+            $demands = $demands->merge($training->demands);
+        }
+        return response()->json($demands);
+    }
 }
 

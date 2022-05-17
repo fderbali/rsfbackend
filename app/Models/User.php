@@ -45,4 +45,8 @@ class User extends Authenticatable
     public function demands(){
         return $this->hasMany(Demand::class);
     }
+
+    public function trainings(){
+        return $this->hasMany(Training::class);
+    }
 }
