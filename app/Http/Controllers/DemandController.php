@@ -37,7 +37,7 @@ class DemandController extends Controller
 
     public function update(demandRequest $demandRequest, Demand $demand){
         $demand->update($demandRequest->all());
-        return response()->json(["success"=>true]);
+        return response()->json($demand);
     }
 
     public function show(Demand $demand) {
