@@ -47,6 +47,7 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
     Route::put('/demand/{demand}', [DemandController::class, 'update']);
     Route::get('/demand/{demand}', [DemandController::class, 'show']);
     Route::get('/demand/user/{user}', [DemandController::class, 'getDemandsByUser']);
+    Route::get('/demand/recu/{user}', [DemandController::class, 'getDemandsByProf']);
 
     // Sessions
     Route::post('/session/create', [SessionController::class, 'store']);
