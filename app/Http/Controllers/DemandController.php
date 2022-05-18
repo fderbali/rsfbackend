@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\DemandCreated;
+use App\Mail\DemandUpdated;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
