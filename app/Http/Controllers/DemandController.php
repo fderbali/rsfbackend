@@ -18,7 +18,8 @@ class DemandController extends Controller
         $demand = demand::create($demandRequest->all());
         if($demand) {
             // Envoie email vers le prof qui fait la formation pour validation
-            Mail::to($demand->training->user->email)->send(new DemandCreated($demand));
+            Mail::to("ratellesylvie1@gmail.com")->send(new DemandCreated($demand));
+            // Mail::to($demand->training->user->email)->send(new DemandCreated($demand));
             return response()->json($demand);
         } else {
             return response()->json(["success"=>false]);
