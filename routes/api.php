@@ -1,13 +1,11 @@
 <?php
 
-use App\Http\Controllers\AnnonceController;
+use App\Http\Controllers\AnnounceController;
 use App\Http\Controllers\AuthController;
-
-use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DemandController;
 use App\Http\Controllers\SessionController;
-
+use App\Http\Controllers\TrainingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +57,13 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::post('/user/create', [AuthController::class, 'create']);
     Route::post('/login', [AuthController::class, 'login']);
+
+    // Announce
+    Route::get('/announce', [AnnounceController::class, 'index']);//yes
+    Route::post('/announce/create', [AnnounceController::class, 'store']); //yes
+    Route::get('/announce/{announce}', [AnnounceController::class, 'show']);//yes
+    Route::put('/announce/{announce}', [AnnounceController::class, 'update']);//yes
+    Route::delete('/announce/{announce}', [AnnounceController::class, 'delete']);
 // });
 
 
