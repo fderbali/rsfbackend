@@ -14,12 +14,10 @@ use Illuminate\Support\Facades\Mail;
 class DemandController extends Controller
 {
     public function store(demandRequest $demandRequest) {
-
         $demand = demand::create($demandRequest->all());
         if($demand) {
             // Envoie email vers le prof qui fait la formation pour validation
-            Mail::to("ratellesylvie1@gmail.com")->send(new DemandCreated($demand));
-            // Mail::to($demand->training->user->email)->send(new DemandCreated($demand));
+            Mail::to($demand->training->user->email)->send(new DemandCreated($demand));
             return response()->json($demand);
         } else {
             return response()->json(["success"=>false]);
@@ -38,7 +36,11 @@ class DemandController extends Controller
 
     public function update(demandRequest $demandRequest, Demand $demand){
         $demand->update($demandRequest->all());
-        return response()->json($demand);
+        if($demand){
+            Mail::to($demand->user->email)->send(new DemandUpdated($demand));
+            return response()->json($demand);
+        }
+        return response()->json(["success"=>false]);
     }
 
     public function show(Demand $demand) {
