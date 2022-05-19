@@ -44,7 +44,7 @@ class DemandController extends Controller
                 // On cée et on envoie le devis !
                 $estimate = Estimate::create([
                     'demand_id' => $demand->id,
-                    'price' => $demand->training->price
+                    'price' => sprintf("%.2f", $demand->training->price * 1.15)
                 ]);
                 if ($estimate) {
                     Log::info($estimate);
