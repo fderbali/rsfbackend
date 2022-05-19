@@ -7,6 +7,9 @@ use App\Models\Estimate;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\EstimateRequest;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 class EstimateController extends Controller
 {
     public function index(): \Illuminate\Http\JsonResponse
@@ -42,7 +45,14 @@ class EstimateController extends Controller
     }
 
     public function getEstimatesByUser(User $user){
-        return response()->json(Demand::Where('user_id', $user->id)->get()->load('estimate'));
+        DB::connection()->enableQueryLog();
+        $estimates = Demand::Where('user_id', $user->id)
+                                        ->whereNotNull('estimate_id')
+                                        ->get()
+                                        ->load('estimate','training');
+        $queries = DB::getQueryLog();
+        Log::info($queries);
+        return response()->json($estimates);
     }
 
     public function getDemandsByProf(User $user){
