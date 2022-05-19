@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Mail\DemandCreated;
 use App\Mail\DemandUpdated;
+use App\Mail\EstimateCreated;
+use App\Models\Estimate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Request;
 
 use App\Http\Requests\demandRequest;
 use App\Models\Demand;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class DemandController extends Controller
@@ -37,8 +39,24 @@ class DemandController extends Controller
 
     public function update(demandRequest $demandRequest, Demand $demand){
         $demand->update($demandRequest->all());
-        if($demand){
-            Mail::to($demand->user->email)->send(new DemandUpdated($demand));
+        if($demand) {
+            if ($demand->status == "confirmed") {
+                // On cée et on envoie le devis !
+                $estimate = Estimate::create([
+                    'demand_id' => $demand->id,
+                    'price' => sprintf("%.2f", $demand->training->price * 1.15)
+                ]);
+                if ($estimate) {
+                    Log::info($estimate);
+                    Mail::to($demand->user->email)->send(new EstimateCreated($estimate));
+                }
+            }
+            else
+            {
+                // On informe le user que sa demandes est annulée par email
+                // Mais si elle est confirmée, on l'informe dans le même e-mail qu'il va reçevoir pour le devis
+                Mail::to($demand->user->email)->send(new DemandUpdated($demand));
+            }
             return response()->json($demand);
         }
         return response()->json(["success"=>false]);
