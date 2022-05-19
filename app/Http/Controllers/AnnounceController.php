@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\announceRequest;
+use App\Models\Announce;
 use Illuminate\Http\Request;
+
 
 class AnnounceController extends Controller
 {
@@ -11,9 +14,9 @@ class AnnounceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+        $Announce = Announce::paginate(2);
+        return response()->json($Announce);
     }
 
     /**
@@ -22,20 +25,24 @@ class AnnounceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(announceRequest $announceRequest){
+        $Announce = Announce::create($announceRequest->all());
+      
+        if($Announce) {return response()->json(["success"=>true]);
+        } else {
+            return response()->json(["success"=>false]);
+        }
     }
 
-    /**
+    /** 
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Announce $Announce)
     {
-        //
+        return response()->json($Announce);
     }
 
     /**
@@ -45,9 +52,9 @@ class AnnounceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(announceRequest $announceRequest, Announce $Announce) {
+        $Announce->update($announceRequest->all());
+        return response()->json(["success"=>true]);
     }
 
     /**
@@ -56,8 +63,8 @@ class AnnounceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function delete(Announce $Announce){
+        $Announce->delete();
+        return response()->json(["success"=>true]);
     }
 }
