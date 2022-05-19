@@ -17,4 +17,8 @@ class Demand extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+    // Estimate
+    public function estimate() {
+        return $this->belongsTo(Estimate::class);
+    }
 }

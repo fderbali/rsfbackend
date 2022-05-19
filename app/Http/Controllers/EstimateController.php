@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Demand;
 use App\Models\Estimate;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\EstimateRequest;
 class EstimateController extends Controller
@@ -37,5 +39,18 @@ class EstimateController extends Controller
     {
         $estimate->delete();
         return response()->json(["success"=>true]);
+    }
+
+    public function getEstimatesByUser(User $user){
+        return response()->json(Demand::Where('user_id', $user->id)->get()->load('estimate'));
+    }
+
+    public function getDemandsByProf(User $user){
+        $trainings = $user->trainings;
+        $demands = new Collection();
+        foreach ($trainings as $training){
+            $demands = $demands->merge($training->demands);
+        }
+        return response()->json($demands);
     }
 }

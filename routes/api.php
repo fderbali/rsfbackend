@@ -4,6 +4,7 @@ use App\Http\Controllers\AnnounceController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DemandController;
+use App\Http\Controllers\EstimateController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Http\Request;
@@ -46,6 +47,10 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
     Route::get('/demand/{demand}', [DemandController::class, 'show']);
     Route::get('/demand/user/{user}', [DemandController::class, 'getDemandsByUser']);
     Route::get('/demand/recu/{user}', [DemandController::class, 'getDemandsByProf']);
+
+    //Estimates :
+    Route::get('/estimate/user/{user}', [EstimateController::class, 'getEstimatesByUser']);
+    Route::get('/estimate/recu/{user}', [EstimateController::class, 'getEstimatesByProf']);
 
     // Sessions
     Route::post('/session/create', [SessionController::class, 'store']);
