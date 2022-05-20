@@ -14,7 +14,7 @@ class AddColumnToDemand extends Migration
     public function up()
     {
         Schema::table('demands', function (Blueprint $table) {
-            $table->unsignedBigInteger('estimate_id');
+            $table->unsignedBigInteger('estimate_id')->nullable();
             $table->foreign('estimate_id')->references('id')->on('estimates');
         });
     }
