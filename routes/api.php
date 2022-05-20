@@ -50,7 +50,7 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
 
     //Estimates :
     Route::get('/estimate/user/{user}', [EstimateController::class, 'getEstimatesByUser']);
-    Route::get('/estimate/recu/{user}', [EstimateController::class, 'getEstimatesByProf']);
+    Route::get('/estimate/sent/{user}', [EstimateController::class, 'getEstimatesByProf']);
 
     // Sessions
     Route::post('/session/create', [SessionController::class, 'store']);

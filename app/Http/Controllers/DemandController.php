@@ -48,6 +48,8 @@ class DemandController extends Controller
                 ]);
                 if ($estimate) {
                     Log::info($estimate);
+                    $demand->estimate_id = $estimate->id;
+                    $demand->save();
                     Mail::to($demand->user->email)->send(new EstimateCreated($estimate));
                 }
             }

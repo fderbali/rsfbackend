@@ -18,4 +18,8 @@ class Training extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function estimates(){
+        return $this->hasManyThrough(Estimate::class, Demand::class);
+    }
 }

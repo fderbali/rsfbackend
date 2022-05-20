@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Demand;
 use App\Models\Estimate;
+use App\Models\Training;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\EstimateRequest;
@@ -55,12 +56,16 @@ class EstimateController extends Controller
         return response()->json($estimates);
     }
 
-    public function getDemandsByProf(User $user){
-        $trainings = $user->trainings;
-        $demands = new Collection();
-        foreach ($trainings as $training){
-            $demands = $demands->merge($training->demands);
-        }
-        return response()->json($demands);
+    public function getEstimatesByProf(User $user) {
+         //$trainings = $user->trainings->load('demands', 'estimates');
+        DB::connection()->enableQueryLog();
+        $trainings = Training::Where('user_id', $user->id)
+                               ->get()
+                               ->load(['demands' => function($query) {
+                                   $query->whereNotNull('estimate_id');
+                               }]);
+        $queries = DB::getQueryLog();
+        Log::info($queries);
+        return response()->json($trainings);
     }
 }
