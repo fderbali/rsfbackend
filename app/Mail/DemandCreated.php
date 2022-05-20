@@ -17,9 +17,7 @@ class DemandCreated extends Mailable
      *
      * @return void
      */
-
     public $demand;
-
     public function __construct(Demand $demand)
     {
         $this->demand = $demand;
@@ -32,6 +30,6 @@ class DemandCreated extends Mailable
      */
     public function build()
     {
-        return $this->view('demandeCree');
+        return $this->markdown('emails.demands.created');
     }
 }
