@@ -48,22 +48,22 @@ class EstimateController extends Controller
     public function getEstimatesByUser(User $user){
         DB::connection()->enableQueryLog();
         $estimates = Demand::Where('user_id', $user->id)
-                                        ->whereNotNull('estimate_id')
-                                        ->get()
-                                        ->load('estimate','training');
+                             ->whereNotNull('estimate_id')
+                             ->get()
+                             ->load('estimate','training');
         $queries = DB::getQueryLog();
         Log::info($queries);
         return response()->json($estimates);
     }
 
     public function getEstimatesByProf(User $user) {
-         //$trainings = $user->trainings->load('demands', 'estimates');
         DB::connection()->enableQueryLog();
-        $trainings = Training::Where('user_id', $user->id)
+        $trainings = Training::WhereHas('demands', function($query){$query->whereNotNull('estimate_id');})
+                               ->where('user_id', $user->id)
                                ->get()
                                ->load(['demands' => function($query) {
                                    $query->whereNotNull('estimate_id');
-                               }]);
+                               }, 'demands.user','demands.estimate']);
         $queries = DB::getQueryLog();
         Log::info($queries);
         return response()->json($trainings);
