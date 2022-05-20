@@ -43,7 +43,10 @@ class TrainingController extends Controller
         }
     }
     public function index(){
-        $trainings = Training::with('user')->paginate(4);
+        //$trainings = Training::with('user','demands')->paginate(4);
+        $trainings = Training::with(['user','demands' => function ($query) {
+                               $query->where('user_id', 1);
+                           }])->get();
         return response()->json($trainings);
     }
     public function delete(Training $training) {
