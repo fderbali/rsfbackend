@@ -9,21 +9,6 @@ use Illuminate\Http\Request;
 class TrainingController extends Controller
 {
     public function store(trainingRequest $trainingRequest) {
-        /*if(
-        Training::create([
-            "title" => $trainingRequest->title,
-            "description" => $trainingRequest->description,
-            "thumbnail" => $trainingRequest->thumbnail,
-            "level" => $trainingRequest->level,
-            "location" => $trainingRequest->location,
-            "user_id" => $trainingRequest->user_id,
-            "category_id" => $trainingRequest->category_id,
-            "total_duration" => $trainingRequest->total_duration
-        ])) {
-            return response()->json(["success"=>true]);
-        }
-        return response()->json(["success"=>false]);*/
-
         $imageName = time().'.'.$trainingRequest->thumbnail->extension();
         $trainingRequest->thumbnail->move(public_path('images'), $imageName);
 
@@ -35,7 +20,8 @@ class TrainingController extends Controller
             "location" => $trainingRequest->location,
             "user_id" => $trainingRequest->user_id,
             "category_id" => $trainingRequest->category_id,
-            "total_duration" => $trainingRequest->total_duration
+            "total_duration" => $trainingRequest->total_duration,
+            "price" => $trainingRequest->price
         ])) {
             return response()->json(["success"=>true]);
         } else {
