@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\trainingRequest;
 use App\Models\Training;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TrainingController extends Controller
@@ -28,8 +29,11 @@ class TrainingController extends Controller
             return response()->json(["success"=>false]);
         }
     }
-    public function index(){
-        $trainings = Training::with('user')->paginate(4);
+    public function index(User $user){
+        //$trainings = Training::with('user','demands')->paginate(4);
+        $trainings = Training::with(['user','demands' => function ($query) use ($user) {
+                               $query->where('user_id', $user->id);
+                           }])->paginate(4);
         return response()->json($trainings);
     }
     public function delete(Training $training) {
