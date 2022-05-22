@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -19,15 +20,22 @@ class AuthController extends Controller
         else {
             $loginRequest->session()->regenerate();
             $user = Auth::user();
+            $jwt = $user->createToken('token')->plainTextToken;
+            $cookie = cookie('jwt', $jwt, 60);
             return response()->json([
-                'user' => $user
-            ]);
+                'user' => $user,
+                'jwt' => $jwt
+            ])->withCookie($cookie);
         }
     }
     public function logout(Request $request){
-        Auth::logout();
+        Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+        $cookie = Cookie::forget('jwt');
+        return response()->json([
+            "success" => true
+        ])->withCookie($cookie);
     }
     public function create(UserRequest $request){
         $user = User::create([

@@ -27,9 +27,10 @@ Route::get('/category', [CategoryController::class, 'index']);
 Route::get('/category/{category}', [CategoryController::class, 'show']);
 // L'utilisateur quand il arrive au début il est forcément pas authentifié,
 // c'est pour ça qu'on met cette route en dehors du middleware auth:sanctum
+Route::post('/user/create', [AuthController::class, 'create']);
+Route::post('/login', [AuthController::class, 'login']);
 
-
-// Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     // Trainings
     Route::post('/training/create', [TrainingController::class, 'store']);
     Route::delete('/training/{training}', [TrainingController::class, 'delete']);
@@ -61,8 +62,6 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
 
     // Logout
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/user/create', [AuthController::class, 'create']);
-    Route::post('/login', [AuthController::class, 'login']);
 
     // Announce
     Route::get('/announce', [AnnounceController::class, 'index']);//yes
@@ -70,7 +69,7 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
     Route::get('/announce/{announce}', [AnnounceController::class, 'show']);//yes
     Route::put('/announce/{announce}', [AnnounceController::class, 'update']);//yes
     Route::delete('/announce/{announce}', [AnnounceController::class, 'delete']);
-// });
+});
 
 
 
