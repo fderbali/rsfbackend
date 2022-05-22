@@ -21,7 +21,7 @@ class AuthController extends Controller
             $loginRequest->session()->regenerate();
             $user = Auth::user();
             $jwt = $user->createToken('token')->plainTextToken;
-            $cookie = cookie('jwt', $jwt, 60 * 24);
+            $cookie = cookie('jwt', $jwt, 60);
             return response()->json([
                 'user' => $user,
                 'jwt' => $jwt
