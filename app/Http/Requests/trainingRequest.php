@@ -32,7 +32,7 @@ class trainingRequest extends FormRequest
             "user_id" => "required|integer",
             "category_id" => "required|integer",
             "total_duration" => "required|integer",
-            "price" => "required|integer"
+            "price" => "required|numeric"
         ];
     }
 }
