@@ -1,14 +1,15 @@
 <?php
 
-use App\Http\Controllers\AnnounceController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\DemandController;
-use App\Http\Controllers\EstimateController;
-use App\Http\Controllers\SessionController;
-use App\Http\Controllers\TrainingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DemandController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\AnnounceController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\EstimateController;
+use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\blackListUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,11 +66,20 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
     Route::post('/login', [AuthController::class, 'login']);
 
     // Announce
-    Route::get('/announce', [AnnounceController::class, 'index']);//yes
-    Route::post('/announce/create', [AnnounceController::class, 'store']); //yes
-    Route::get('/announce/{announce}', [AnnounceController::class, 'show']);//yes
-    Route::put('/announce/{announce}', [AnnounceController::class, 'update']);//yes
+    Route::get('/announce', [AnnounceController::class, 'index']);
+    Route::post('/announce/create', [AnnounceController::class, 'store']);
+    Route::get('/announce/{announce}', [AnnounceController::class, 'show']);
+    Route::put('/announce/{announce}', [AnnounceController::class, 'update']);
     Route::delete('/announce/{announce}', [AnnounceController::class, 'delete']);
+
+     // BlackListUser
+    Route::get('/BlackListUser', [blackListUserController::class, 'index']);
+    Route::post('/BlackListUser/create', [blackListUserController::class, 'store']);
+    Route::get('/BlackListUser/{blacklistuser}', [blackListUserController::class, 'show']);
+    Route::put('/BlackListUser/{blacklistuser}', [blackListUserController::class, 'update']);
+    Route::delete('/BlackListUser/{blacklistuser}', [blackListUserController::class, 'delete']);
+
+
 // });
 
 
