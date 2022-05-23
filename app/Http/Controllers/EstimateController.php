@@ -56,7 +56,7 @@ class EstimateController extends Controller
         $estimates = Demand::Where('user_id', $user->id)
                              ->whereNotNull('estimate_id')
                              ->get()
-                             ->load('estimate','training');
+                             ->load('estimate','training','training.user');
         $queries = DB::getQueryLog();
         Log::info($queries);
         return response()->json($estimates);
