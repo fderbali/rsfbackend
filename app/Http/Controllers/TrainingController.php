@@ -35,7 +35,6 @@ class TrainingController extends Controller
                 $query->where('user_id', auth('sanctum')->user()->id);
             }])->paginate(4);
         } else {
-            Log::info("je passe par ici");
             $trainings = Training::with('user','demands')->paginate(4);
         }
         return response()->json($trainings);
