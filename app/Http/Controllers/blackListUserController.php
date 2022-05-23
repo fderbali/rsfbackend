@@ -36,5 +36,8 @@ class blackListUserController extends Controller
         $BlackListUser->update($BlackListUserRequest->all());
         return response()->json(["success"=>true]);
     }
-
+    public function delete(Blacklisteduser $BlackListUser){
+        $BlackListUser->delete();
+        return response()->json(["success"=>true]);
+    }
 }
