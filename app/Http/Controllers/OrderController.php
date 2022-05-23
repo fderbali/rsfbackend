@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
+use App\Mail\OrderCreated;
 use App\Models\Order;
+use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
 {
@@ -27,6 +29,8 @@ class OrderController extends Controller
     {
         $order = Order::create( $request->all());
         if($order) {
+            // Send mail to teacher to tell him that the payment was done !
+            Mail::to($order->training->user->email)->send(new OrderCreated($order));
             return response()->json($order);
         }
         return response()->json(["success"=>false]);
