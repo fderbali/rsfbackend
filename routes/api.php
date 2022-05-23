@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DemandController;
 use App\Http\Controllers\EstimateController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TrainingController;
 use Illuminate\Http\Request;
@@ -70,6 +71,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/announce/{announce}', [AnnounceController::class, 'show']);//yes
     Route::put('/announce/{announce}', [AnnounceController::class, 'update']);//yes
     Route::delete('/announce/{announce}', [AnnounceController::class, 'delete']);
+
+    //orders
+    Route::resource('order',OrderController::class);
 });
 
 
