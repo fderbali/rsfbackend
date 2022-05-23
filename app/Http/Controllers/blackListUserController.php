@@ -17,30 +17,14 @@ class blackListUserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function store(blackListUserRequest $Blacklisteduser) {
-
-        $Blacklist = Blacklisteduser::create($Blacklisteduser->all());
-      
-        if($Blacklist) {return response()->json(["success"=>true]);
-        } else {
-            return response()->json(["success"=>false]);
-        } 
-
-
-
-
-        if(Blacklisteduser::create([
-           'email'=>$Blacklisteduser->email,
-         ])) 
-        {
-        return response()->json(["success"=>true]);
-        } else {
-            return response()->json(["success"=>false]);
+    public function store(Blacklisteduser $Blacklisteduser ,blackListUserRequest $blackListUserRequest ) : \Illuminate\Http\JsonResponse
+    {
+        $Blacklisteduser = Blacklisteduser::create( $blackListUserRequest->all());
+        if($Blacklisteduser) {
+            return response()->json($Blacklisteduser);
         }
+        return response()->json(["success"=>false]);
     }
-    // public function show(Blacklisteduser $Blacklisteduser) {
-    //     return response()->json(["success03"=>true]);
-    //    } 
 
        
     public function show(Blacklisteduser $Blacklisteduser): \Illuminate\Http\JsonResponse
@@ -48,6 +32,9 @@ class blackListUserController extends Controller
         return response()->json($Blacklisteduser);
     }
     
-
+    public function update(blackListUserRequest $BlackListUserRequest, Blacklisteduser $BlackListUser) {
+        $BlackListUser->update($BlackListUserRequest->all());
+        return response()->json(["success"=>true]);
+    }
 
 }

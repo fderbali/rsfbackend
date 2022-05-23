@@ -26,6 +26,7 @@ class blackListUserRequest extends FormRequest
     {
         return [    
             "email" => "required|email"
+            
         ];
     }
 }

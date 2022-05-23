@@ -12,13 +12,13 @@ class Blacklisteduser extends Model
     use HasFactory;
 
     protected $fillable = ['email'];
-    protected $guarded=["create_at","updated_at"];
+    protected $guarded=['create_at','updated_at'];
 
     ////////////////////////////////////
     // Si  on ajoute une table connexion qui rellera la table users avec table blacklisteduser , on pourra alors refuser l'authantification au départ
-    // pour le moment aucune relation existante! 
+    // // pour le moment aucune relation existante! 
     public function Blacklisted(){
-    return $this->hasMany(Blacklisteduser::class);
+    return $this->belongsTo(Blacklisteduser::class);
     }
     ////////////////////////////////////
 }
