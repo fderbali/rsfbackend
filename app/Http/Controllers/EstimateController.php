@@ -30,6 +30,12 @@ class EstimateController extends Controller
 
     public function show(Estimate $estimate): \Illuminate\Http\JsonResponse
     {
+        DB::connection()->enableQueryLog();
+        $estimate = Demand::Where('estimate_id', $estimate->id)
+            ->first()
+            ->load('estimate','training', 'training.user');
+        $queries = DB::getQueryLog();
+        Log::info($queries);
         return response()->json($estimate);
     }
 
