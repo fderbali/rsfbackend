@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/training/user/{user}', [TrainingController::class, 'index']);
+Route::get('/training', [TrainingController::class, 'index']);
 Route::get('/training/{training}', [TrainingController::class, 'show']);
 Route::get('/category', [CategoryController::class, 'index']);
 Route::get('/category/{category}', [CategoryController::class, 'show']);
