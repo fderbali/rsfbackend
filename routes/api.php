@@ -8,6 +8,8 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\AnnounceController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EstimateController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\blackListUserController;
 
@@ -22,15 +24,16 @@ use App\Http\Controllers\blackListUserController;
 |
 */
 
-Route::get('/training/user/{user}', [TrainingController::class, 'index']);
+Route::get('/training', [TrainingController::class, 'index']);
 Route::get('/training/{training}', [TrainingController::class, 'show']);
 Route::get('/category', [CategoryController::class, 'index']);
 Route::get('/category/{category}', [CategoryController::class, 'show']);
 // L'utilisateur quand il arrive au début il est forcément pas authentifié,
 // c'est pour ça qu'on met cette route en dehors du middleware auth:sanctum
+Route::post('/user/create', [AuthController::class, 'create']);
+Route::post('/login', [AuthController::class, 'login']);
 
-
-// Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     // Trainings
     Route::post('/training/create', [TrainingController::class, 'store']);
     Route::delete('/training/{training}', [TrainingController::class, 'delete']);
@@ -52,6 +55,7 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
     //Estimates :
     Route::get('/estimate/user/{user}', [EstimateController::class, 'getEstimatesByUser']);
     Route::get('/estimate/sent/{user}', [EstimateController::class, 'getEstimatesByProf']);
+    Route::get('/estimate/{estimate}',  [EstimateController::class, 'show']);
 
     // Sessions
     Route::post('/session/create', [SessionController::class, 'store']);
@@ -62,8 +66,6 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
 
     // Logout
     Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/user/create', [AuthController::class, 'create']);
-    Route::post('/login', [AuthController::class, 'login']);
 
     // Announce
     Route::get('/announce', [AnnounceController::class, 'index']);
@@ -79,8 +81,9 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
     Route::put('/BlackListUser/{blacklistuser}', [blackListUserController::class, 'update']);
     Route::delete('/BlackListUser/{blacklistuser}', [blackListUserController::class, 'delete']);
 
-
-// });
+     //orders
+    Route::resource('order',OrderController::class);
+});
 
 
 

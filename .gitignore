@@ -14,3 +14,5 @@ yarn-error.log
 .idea/
 
 public/images/
+
+_ide_helper.php
