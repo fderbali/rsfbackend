@@ -6,6 +6,7 @@ use App\Mail\DemandCreated;
 use App\Mail\DemandUpdated;
 use App\Mail\EstimateCreated;
 use App\Models\Estimate;
+use App\Models\Training;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -69,16 +70,15 @@ class DemandController extends Controller
     }
 
     public function getDemandsByUser(User $user){
-        return response()->json($user->demands);
+        return response()->json($user->demands->whereNull('estimate_id')->load('training','training.user'));
     }
 
     public function getDemandsByProf(User $user){
-        $trainings = $user->trainings;
-        $demands = new Collection();
-        foreach ($trainings as $training){
-            $demands = $demands->merge($training->demands);
-        }
-        return response()->json($demands);
+        $trainings = Training::WhereHas('demands',function($query){$query->where('status','initiated');})
+            ->where('user_id', auth('sanctum')->user()->id)
+            ->get()
+            ->load(['demands', 'demands.user']);
+        return response()->json($trainings);
     }
 }
 
