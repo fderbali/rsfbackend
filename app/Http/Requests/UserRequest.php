@@ -14,7 +14,6 @@ class UserRequest extends FormRequest
     public function authorize()
     {
         return true;
-        // if not blaklisted  --- may be matched in AuthController
     }
 
     /**
