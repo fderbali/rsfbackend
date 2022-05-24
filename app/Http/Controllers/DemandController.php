@@ -70,7 +70,7 @@ class DemandController extends Controller
     }
 
     public function getDemandsByUser(User $user){
-        return response()->json($user->demands);
+        return response()->json($user->demands->whereNull('estimate_id')->load('training','training.user'));
     }
 
     public function getDemandsByProf(User $user){
