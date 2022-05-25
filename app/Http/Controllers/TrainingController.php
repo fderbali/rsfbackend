@@ -21,7 +21,8 @@ class TrainingController extends Controller
             "user_id" => $trainingRequest->user_id,
             "category_id" => $trainingRequest->category_id,
             "total_duration" => $trainingRequest->total_duration,
-            "price" => $trainingRequest->price
+            "price" => $trainingRequest->price,
+            "language" => $trainingRequest->language
         ])) {
             return response()->json(["success"=>true]);
         } else {
