@@ -81,7 +81,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
      //orders
     Route::resource('order',OrderController::class);
+
+    // Cédules
+    Route::get('/cedule/user', [SessionController::class, 'getCeduleByUser']);
+    Route::get('/cedule/prof', [SessionController::class, 'getCeduleByProf']);
 });
-
-
-
