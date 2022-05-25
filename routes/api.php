@@ -55,6 +55,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/estimate/user/{user}', [EstimateController::class, 'getEstimatesByUser']);
     Route::get('/estimate/sent/{user}', [EstimateController::class, 'getEstimatesByProf']);
     Route::get('/estimate/{estimate}',  [EstimateController::class, 'show']);
+    Route::put('/estimate/{estimate}',  [EstimateController::class, 'update']);
 
     // Sessions
     Route::post('/session/create', [SessionController::class, 'store']);
