@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Training;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\sessionRequest;
@@ -35,5 +36,20 @@ class SessionController extends Controller
 
     public function show(Session $session) {
         return response()->json($session);
+    }
+
+    public function getCeduleByUser(){
+        $sessions = Session::Where('user_id', auth('sanctum')->user()->id)
+            ->get()
+            ->load(['training','training.user']);
+        return response()->json($sessions);
+    }
+
+    public function getCeduleByProf(){
+        $trainings = Training::Where('user_id', auth('sanctum')->user()->id)
+            ->whereHas('sessions')
+            ->get()
+            ->load(['sessions', 'sessions.user']);
+        return response()->json($trainings);
     }
 }
