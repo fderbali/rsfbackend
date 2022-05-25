@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use App\Models\Blacklisteduser;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 /**
  * App\Models\Blacklisteduser
@@ -24,4 +26,7 @@ use Illuminate\Database\Eloquent\Model;
 class Blacklisteduser extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['email'];
+    protected $guarded=['create_at','updated_at'];
 }
