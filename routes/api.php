@@ -77,7 +77,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/BlackListUser', [blackListUserController::class, 'index']);
     Route::post('/BlackListUser/create', [blackListUserController::class, 'store']);
     Route::get('/BlackListUser/{blacklistuser}', [blackListUserController::class, 'show']);
-    Route::put('/BlackListUser/{blacklistuser}', [blackListUserController::class, 'update']);
     Route::delete('/BlackListUser/{blacklistuser}', [blackListUserController::class, 'delete']);
 
      //orders
