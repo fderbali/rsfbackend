@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DemandUpdateRequest;
 use App\Mail\DemandCreated;
 use App\Mail\DemandUpdated;
 use App\Mail\EstimateCreated;
@@ -38,14 +39,15 @@ class DemandController extends Controller
         return response()->json(["success"=>true]);
     }
 
-    public function update(demandRequest $demandRequest, Demand $demand){
+    public function update(DemandUpdateRequest $demandRequest, Demand $demand){
         $demand->update($demandRequest->all());
         if($demand) {
             if ($demand->status == "confirmed") {
                 // On cée et on envoie le devis !
                 $estimate = Estimate::create([
                     'demand_id' => $demand->id,
-                    'price' => sprintf("%.2f", $demand->training->price * 1.15)
+                    'price' => sprintf("%.2f", $demand->training->price * 1.15),
+                    'status' => 'pending'
                 ]);
                 if ($estimate) {
                     Log::info($estimate);
