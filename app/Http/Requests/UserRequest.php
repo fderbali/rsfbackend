@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UserRequest extends FormRequest
 {
@@ -32,7 +33,8 @@ class UserRequest extends FormRequest
             "city"=>"required",
             "zip_code"=>"required",
             "country"=>"required",
-            "password"=>"required"
+            "password"=>"required",
+            "communication"=>['required','string',Rule::in(['french', 'english'])]
         ];
     }
 }

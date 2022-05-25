@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class trainingRequest extends FormRequest
 {
@@ -32,7 +33,8 @@ class trainingRequest extends FormRequest
             "user_id" => "required|integer",
             "category_id" => "required|integer",
             "total_duration" => "required|integer",
-            "price" => "required|numeric"
+            "price" => "required|numeric",
+            "language"=>['required','string',Rule::in(['french', 'english'])]
         ];
     }
 }
