@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
 use App\Mail\OrderCreated;
+use App\Models\Estimate;
 use App\Models\Order;
 use Illuminate\Support\Facades\Mail;
 
@@ -27,8 +28,12 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        $order = Order::create( $request->all());
+        $order = Order::create( $request->only(['training_id', 'estimate_id', 'price']));
         if($order) {
+            // Mise à jour du status du estimate
+            $estimate = Estimate::find($request->estimate_id);
+            $estimate->status = $request->status;
+            $estimate->save();
             // Send mail to teacher to tell him that the payment was done !
             Mail::to($order->training->user->email)->send(new OrderCreated($order));
             return response()->json($order);
