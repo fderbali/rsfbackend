@@ -6,7 +6,7 @@
 <p>Formation : {{ $order->training->title }}</p>
 <p>Prix total : {{ $order->price }} $CAD</p>
 
-@component('mail::button', ['url' => 'http://localhost:8080'])
+@component('mail::button', ['url' => 'http://localhost:8080/form-session?order='.$order->id])
 Céduler les séances
 @endcomponent
 
