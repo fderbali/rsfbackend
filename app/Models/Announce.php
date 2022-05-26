@@ -31,4 +31,9 @@ class Announce extends Model
 {
     use HasFactory;
     protected $guarded=["create_at","updated_at"]; 
+    
+    public function Announce()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

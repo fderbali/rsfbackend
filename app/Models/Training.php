@@ -59,4 +59,8 @@ class Training extends Model
     public function estimates(){
         return $this->hasManyThrough(Estimate::class, Demand::class);
     }
+
+    public function sessions(){
+        return $this->hasMany(Session::class);
+    }
 }

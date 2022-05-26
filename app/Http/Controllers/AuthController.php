@@ -47,7 +47,8 @@ class AuthController extends Controller
             "city"=>$request->city,
             "zip_code"=>$request->zip_code,
             "country"=>$request->country,
-            "password"=> Hash::make($request->password)
+            "password"=> Hash::make($request->password),
+            "communication"=> $request->communication
         ]);
         if($user) {
             return response()->json(["success"=>true]);
