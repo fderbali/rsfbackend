@@ -49,6 +49,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return response()->json($order);
+        $orderToReturn = Order::find($order->id)->load('training','estimate.demand.user');
+        return response()->json($orderToReturn);
     }
 }
