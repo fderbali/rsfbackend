@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EstimateUpdateRequest;
 use App\Models\Demand;
 use App\Models\Estimate;
 use App\Models\Training;
@@ -39,9 +40,9 @@ class EstimateController extends Controller
         return response()->json($estimate);
     }
 
-    public function update(EstimateRequest $estimateRequest, Estimate $estimate): \Illuminate\Http\JsonResponse
+    public function update(EstimateUpdateRequest $estimateRequest, Estimate $estimate): \Illuminate\Http\JsonResponse
     {
-        $estimate->update($estimateRequest->all());
+        $estimate->update($estimateRequest->only(['status']));
         return response()->json($estimate);
     }
 

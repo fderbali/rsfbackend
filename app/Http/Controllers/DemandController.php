@@ -76,7 +76,7 @@ class DemandController extends Controller
     }
 
     public function getDemandsByProf(User $user){
-        $trainings = Training::WhereHas('demands',function($query){$query->where('status','initiated');})
+        $trainings = Training::WhereHas('demands')//,function($query){$query->where('status','initiated');})
             ->where('user_id', auth('sanctum')->user()->id)
             ->get()
             ->load(['demands', 'demands.user']);
