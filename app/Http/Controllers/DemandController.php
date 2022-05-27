@@ -40,7 +40,7 @@ class DemandController extends Controller
     }
 
     public function update(DemandUpdateRequest $demandRequest, Demand $demand){
-        $demand->update($demandRequest->all());
+        $demand->update($demandRequest->except(['user_id']));
         if($demand) {
             if ($demand->status == "confirmed") {
                 // On cée et on envoie le devis !
