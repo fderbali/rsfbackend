@@ -3,6 +3,7 @@
 
 ## Un devis vient d'être payé :
 
+<p>Par :  {{ $order->estimate->demand->user->first_name }} {{ $order->estimate->demand->user->last_name }}</p>
 <p>Formation : {{ $order->training->title }}</p>
 <p>Prix total : {{ $order->price }} $CAD</p>
 

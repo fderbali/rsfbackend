@@ -1,7 +1,7 @@
 @component('mail::message')
 Bonjour {{ $demand->training->user->first_name }} {{ $demand->training->user->last_name }},
 
-Votre demande a bien été créé !
+Une demande de formation vous étant destiné vient d'être créée!
 Voici les détails :
 
 ## Demande de formation : {{ $demand->training->title }}
