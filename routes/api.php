@@ -35,8 +35,10 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     // Trainings
     Route::post('/training/create', [TrainingController::class, 'store']);
+    Route::post('/training/search', [TrainingController::class, 'search']);
     Route::delete('/training/{training}', [TrainingController::class, 'delete']);
     Route::put('/training/{training}', [TrainingController::class, 'update']);
+
     // Categories
     Route::post('/category/create', [CategoryController::class, 'store']);
     Route::delete('/category/{category}', [CategoryController::class, 'delete']);
@@ -86,4 +88,5 @@ Route::middleware('auth:sanctum')->group(function () {
     // Cédules
     Route::get('/cedule/user', [SessionController::class, 'getCeduleByUser']);
     Route::get('/cedule/prof', [SessionController::class, 'getCeduleByProf']);
+
 });
