@@ -40,6 +40,7 @@ class SessionController extends Controller
 
     public function getCeduleByUser(){
         $sessions = Session::Where('user_id', auth('sanctum')->user()->id)
+            ->orderBy('start', 'asc')
             ->get()
             ->load(['training','training.user']);
         return response()->json($sessions);
