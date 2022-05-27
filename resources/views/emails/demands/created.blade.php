@@ -2,10 +2,10 @@
 Bonjour {{ $demand->training->user->first_name }} {{ $demand->training->user->last_name }},
 
 Une demande de formation vous étant destiné vient d'être créée!
+<br/>
 Voici les détails :
 
 ## Demande de formation : {{ $demand->training->title }}
-## Pour: {{ $demand->training->user->first_name }} {{ $demand->training->user->last_name }}
 ## Par : {{ $demand->user->first_name }} {{ $demand->user->last_name }}
 ## Status de la demande : {{ $demand->status }}
 
