@@ -84,6 +84,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
      //orders
     Route::resource('order',OrderController::class);
+    Route::get('orders/prof',[OrderController::class, 'getOrdersByProf']);
 
     // Cédules
     Route::get('/cedule/user', [SessionController::class, 'getCeduleByUser']);

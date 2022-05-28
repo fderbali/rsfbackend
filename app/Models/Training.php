@@ -63,4 +63,8 @@ class Training extends Model
     public function sessions(){
         return $this->hasMany(Session::class);
     }
+
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
 }
