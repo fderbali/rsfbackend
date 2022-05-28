@@ -8,7 +8,7 @@
 <p>Formation : {{ $order->training->title }}</p>
 <p>Prix total : {{ $order->price }} $CAD</p>
 
-<p>=======================================================================================================</p>
+<p>===========================================</p>
 
 # Hello {{ $order->training->user->first_name }} {{ $order->training->user->last_name }},
 

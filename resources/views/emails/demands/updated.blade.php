@@ -8,7 +8,7 @@
 <p>Par : {{ $demand->training->user->first_name }} {{ $demand->training->user->last_name }}</p>
 <p>Status de la demande : {{ $demand->status == 'confirmed' ? 'Confirmée' : 'Annulée' }}</p>
 
-<p>=======================================================================================================</p>
+<p>===========================================</p>
 
 # Hello {{ $demand->user->first_name }} {{ $demand->user->last_name }},
 
@@ -16,7 +16,7 @@
 
 <p>Training request : {{ $demand->training->title }}</p>
 <p>By : {{ $demand->training->user->first_name }} {{ $demand->training->user->last_name }}</p>
-<p>Status of the request : {{ $demand->status == 'confirmed' ? 'Confirmée' : 'Annulée' }}</p>
+<p>Status of the request : {{ $demand->status == 'confirmed' ? 'confirmed' : 'cancelled' }}</p>
 <br>
 
 @component('mail::button', ['url' => 'http://localhost:8080/sent-demands'])

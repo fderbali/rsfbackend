@@ -10,7 +10,7 @@
 <p>Taxes : {{ sprintf("%.2f", $estimate->demand->training->price * 0.15) }} $CAD</p>
 <p>Prix TTC : {{ $estimate->price }} $CAD</p>
 
-<p>=======================================================================================================</p>
+<p>===========================================</p>
 
 # Hello {{ $estimate->demand->user->first_name }} {{ $estimate->demand->user->last_name }},
 

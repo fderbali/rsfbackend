@@ -8,7 +8,7 @@
 <p>Par : {{ $demand->user->first_name }} {{ $demand->user->last_name }}</p>
 <p>Status de la demande : {{ $demand->status }}</p>
 
-<p>=======================================================================================================</p>
+<p>===========================================</p>
 
 # Hello {{ $demand->training->user->first_name }} {{ $demand->training->user->last_name }},
 
