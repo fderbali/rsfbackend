@@ -6,6 +6,9 @@ use App\Http\Requests\OrderRequest;
 use App\Mail\OrderCreated;
 use App\Models\Estimate;
 use App\Models\Order;
+use App\Models\Training;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
@@ -51,5 +54,17 @@ class OrderController extends Controller
     {
         $orderToReturn = Order::find($order->id)->load('training','estimate.demand.user');
         return response()->json($orderToReturn);
+    }
+
+    public function getOrdersByProf() {
+        DB::connection()->enableQueryLog();
+        $orders = Training::Where('user_id', auth('sanctum')->user()->id)
+                            ->Wherehas('orders')
+                            ->get()
+                            ->load('orders')
+                            ->load('orders.estimate.demand.user');
+        $queries = DB::getQueryLog();
+        Log::info($queries);
+        return response()->json($orders);
     }
 }

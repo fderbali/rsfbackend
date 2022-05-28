@@ -31,11 +31,11 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
 // c'est pour ça qu'on met cette route en dehors du middleware auth:sanctum
 Route::post('/user/create', [AuthController::class, 'create']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::post('/training/search', [TrainingController::class, 'search']);
 
 Route::middleware('auth:sanctum')->group(function () {
     // Trainings
     Route::post('/training/create', [TrainingController::class, 'store']);
-    Route::post('/training/search', [TrainingController::class, 'search']);
     Route::delete('/training/{training}', [TrainingController::class, 'delete']);
     Route::put('/training/{training}', [TrainingController::class, 'update']);
 
@@ -84,6 +84,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
      //orders
     Route::resource('order',OrderController::class);
+    Route::get('orders/prof',[OrderController::class, 'getOrdersByProf']);
 
     // Cédules
     Route::get('/cedule/user', [SessionController::class, 'getCeduleByUser']);
