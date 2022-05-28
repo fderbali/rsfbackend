@@ -58,8 +58,7 @@ class OrderController extends Controller
 
     public function getOrdersByProf() {
         DB::connection()->enableQueryLog();
-        $idPorf = auth('sanctum')->user()->id;
-        $orders = Training::Where('user_id',$idPorf)
+        $orders = Training::Where('user_id', auth('sanctum')->user()->id)
                             ->Wherehas('orders')
                             ->get()
                             ->load('orders')
