@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SearchRequest;
 use App\Http\Requests\trainingRequest;
 use App\Models\Training;
+use Illuminate\Support\Facades\DB;
 use Log;
 
 class TrainingController extends Controller
@@ -38,6 +40,21 @@ class TrainingController extends Controller
         } else {
             $trainings = Training::with('user','demands')->paginate(4);
         }
+        return response()->json($trainings);
+    }
+    public function search(SearchRequest $request){
+        DB::connection()->enableQueryLog();
+        if(auth('sanctum')->user()) {
+            $trainings = Training::Where('title','like','%'.$request->searchString.'%')
+                                  ->with(['user', 'demands' => function ($query) {
+                                      $query->where('user_id', auth('sanctum')->user()->id);
+                                  }])->paginate(4);
+        } else {
+            $trainings = Training::Where('title','like','%'.$request->searchString.'%')
+                                  ->with('user','demands')->paginate(4);
+        }
+        $queries = DB::getQueryLog();
+        \Illuminate\Support\Facades\Log::info($queries);
         return response()->json($trainings);
     }
     public function delete(Training $training) {
