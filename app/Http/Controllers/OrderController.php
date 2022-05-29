@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
+use App\Jobs\SendEmailJob;
 use App\Mail\OrderCreated;
 use App\Models\Estimate;
 use App\Models\Order;
