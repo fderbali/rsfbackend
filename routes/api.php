@@ -87,7 +87,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/BlackListUser/{blacklistuser}', [blackListUserController::class, 'delete']);
 
      //orders
-    Route::resource('order',OrderController::class);
+    Route::resource('order',OrderController::class)->except('index');
     Route::get('orders/prof',[OrderController::class, 'getOrdersByProf']);
 
     // Cédules
@@ -97,6 +97,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Admin :
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/statistiques/chiffre-affaire', [AdminController::class, 'getChiffreAffaire']);
+        Route::get('order',[OrderController::class, 'index']);
     });
 
 });

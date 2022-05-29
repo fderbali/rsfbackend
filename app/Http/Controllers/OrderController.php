@@ -20,7 +20,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return Order::paginate(10);
+        return Order::with('training', 'estimate')->get();
     }
 
     /**
