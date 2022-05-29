@@ -19,7 +19,10 @@ class AuthController extends Controller
         }
         else {
             $loginRequest->session()->regenerate();
-            $user = Auth::user();
+            $user = Auth::user()->load(['roles' => function($query) {
+                $query->select('name')
+                      ->where('name','admin');
+            }]);
             $jwt = $user->createToken('token')->plainTextToken;
             $cookie = cookie('jwt', $jwt, 60);
             return response()->json([
@@ -50,6 +53,7 @@ class AuthController extends Controller
             "password"=> Hash::make($request->password),
             "communication"=> $request->communication
         ]);
+        $user->assignRole('user');
         if($user) {
             return response()->json(["success"=>true]);
         }
