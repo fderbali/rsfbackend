@@ -38,7 +38,13 @@ class OrderController extends Controller
             $estimate->status = $request->status;
             $estimate->save();
             // Send mail to teacher to tell him that the payment was done !
-            Mail::to($order->training->user->email)->send(new OrderCreated($order));
+            //Mail::to($order->training->user->email)->send(new OrderCreated($order));
+            $details = [
+                'recipient' => $order->training->user->email,
+                'model' => $order,
+                'class' => 'App\Mail\OrderCreated'
+            ];
+            dispatch(new SendEmailJob($details));
             return response()->json($order);
         }
         return response()->json(["success"=>false]);

@@ -33,7 +33,7 @@ class TrainingController extends Controller
     }
     public function index(){
         if(auth('sanctum')->user()) {
-            Log::info(auth('sanctum')->user());
+            //Log::info(auth('sanctum')->user());
             $trainings = Training::with(['user', 'demands' => function ($query) {
                 $query->where('user_id', auth('sanctum')->user()->id);
             }])->paginate(4);

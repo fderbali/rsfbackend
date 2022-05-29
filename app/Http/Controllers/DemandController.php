@@ -3,13 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DemandUpdateRequest;
-use App\Mail\DemandCreated;
+use App\Jobs\SendEmailJob;
 use App\Mail\DemandUpdated;
-use App\Mail\EstimateCreated;
 use App\Models\Estimate;
 use App\Models\Training;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
 
 use App\Http\Requests\demandRequest;
 use App\Models\Demand;
@@ -22,7 +20,13 @@ class DemandController extends Controller
         $demand = demand::create($demandRequest->all());
         if($demand) {
             // Envoie email vers le prof qui fait la formation pour validation
-            Mail::to($demand->training->user->email)->send(new DemandCreated($demand));
+            //Mail::to($demand->training->user->email)->send(new DemandCreated($demand));
+            $details = [
+                'recipient' => $demand->training->user->email,
+                'model' => $demand,
+                'class' => 'App\Mail\DemandCreated'
+            ];
+            dispatch(new SendEmailJob($details));
             return response()->json($demand);
         } else {
             return response()->json(["success"=>false]);
@@ -53,14 +57,27 @@ class DemandController extends Controller
                     Log::info($estimate);
                     $demand->estimate_id = $estimate->id;
                     $demand->save();
-                    Mail::to($demand->user->email)->send(new EstimateCreated($estimate));
+                    // send email
+                    //Mail::to($demand->user->email)->send(new EstimateCreated($estimate));
+                    $details = [
+                        'recipient' => $demand->user->email,
+                        'model' => $estimate,
+                        'class' => 'App\Mail\EstimateCreated'
+                    ];
+                    dispatch(new SendEmailJob($details));
                 }
             }
             else
             {
                 // On informe le user que sa demandes est annulée par email
                 // Mais si elle est confirmée, on l'informe dans le même e-mail qu'il va reçevoir pour le devis
-                Mail::to($demand->user->email)->send(new DemandUpdated($demand));
+                $details = [
+                    'recipient' => $demand->user->email,
+                    'model' => $demand,
+                    'class' => 'App\Mail\DemandUpdated'
+                ];
+                dispatch(new SendEmailJob($details));
+                //Mail::to($demand->user->email)->send(new DemandUpdated($demand));
             }
             return response()->json($demand);
         }
