@@ -98,6 +98,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('/statistiques/chiffre-affaire', [AdminController::class, 'getChiffreAffaire']);
         Route::get('order',[OrderController::class, 'index']);
+        Route::get('stats-categories',[AdminController::class, 'statsCategories']);
     });
 
 });

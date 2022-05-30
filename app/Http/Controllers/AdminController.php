@@ -19,7 +19,10 @@ class AdminController extends Controller
         return response()->json('roles set up successfully !');
     }
 
-    public function getChiffreAffaire(){
-        return response()->json('here');
+    public function statsCategories(){
+        return response()->json([
+            'informatique' => 67,
+            'autre' => 33
+        ]);
     }
 }
