@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -32,6 +33,9 @@ Route::get('/category/{category}', [CategoryController::class, 'show']);
 Route::post('/user/create', [AuthController::class, 'create']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/training/search', [TrainingController::class, 'search']);
+
+// init des rôles :
+Route::get('/init-roles', [AdminController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     // Trainings
@@ -83,11 +87,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/BlackListUser/{blacklistuser}', [blackListUserController::class, 'delete']);
 
      //orders
-    Route::resource('order',OrderController::class);
+    Route::resource('order',OrderController::class)->except('index');
     Route::get('orders/prof',[OrderController::class, 'getOrdersByProf']);
 
     // Cédules
     Route::get('/cedule/user', [SessionController::class, 'getCeduleByUser']);
     Route::get('/cedule/prof', [SessionController::class, 'getCeduleByProf']);
+
+    // Admin :
+    Route::group(['middleware' => ['role:admin']], function () {
+        Route::get('/statistiques/chiffre-affaire', [AdminController::class, 'getChiffreAffaire']);
+        Route::get('order',[OrderController::class, 'index']);
+        Route::get('stats-categories',[AdminController::class, 'statsCategories']);
+    });
 
 });
