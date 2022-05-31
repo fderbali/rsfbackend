@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -20,9 +21,18 @@ class AdminController extends Controller
     }
 
     public function statsCategories(){
-        return response()->json([
-            'informatique' => 67,
-            'autre' => 33
-        ]);
+        $results = DB::select(DB::raw("select categories.title, count(*) as nb from orders left join trainings on orders.training_id = trainings.id left join categories on categories.id = trainings.category_id group by categories.id"));
+        $stats = [];
+        $categories = [];
+        $total = 0;
+        foreach ($results as $result) {
+            $stats[$result->title] = $result->nb;
+            $total+=$result->nb;
+        }
+
+        foreach ($stats as $categ => $stat) {
+            $categories[] = [$categ => ($stat/$total)*100];
+        }
+        return response()->json($categories);
     }
 }
