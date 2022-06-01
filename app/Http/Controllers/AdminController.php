@@ -15,7 +15,7 @@ class AdminController extends Controller
         $roleUser = Role::create(['name' => 'user']);
         $permission = Permission::create(['name' => 'access backoffice']);
         $roleAdmin->givePermissionTo($permission);
-        $user= User::find(21);
+        $user= User::find(2);
         $user->assignRole('admin');
         return response()->json('roles set up successfully !');
     }
