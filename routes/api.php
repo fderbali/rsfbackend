@@ -99,6 +99,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/statistiques/chiffre-affaire', [AdminController::class, 'getChiffreAffaire']);
         Route::get('order',[OrderController::class, 'index']);
         Route::get('stats-categories',[AdminController::class, 'statsCategories']);
+        Route::get('stats-demands-estimates',[AdminController::class, 'statsDemandsEstimates']);
     });
 
 });
