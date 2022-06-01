@@ -21,7 +21,7 @@ class AdminController extends Controller
     }
 
     public function statsCategories(){
-        $results = DB::select(DB::raw("select categories.title, count(*) as nb from orders left join trainings on orders.training_id = trainings.id left join categories on categories.id = trainings.category_id group by categories.id"));
+        $results = DB::select(DB::raw("SELECT categories.title, COUNT(*) AS nb FROM orders LEFT JOIN trainings ON orders.training_id = trainings.id LEFT JOIN categories ON categories.id = trainings.category_id GROUP BY categories.id"));
         $stats = [];
         $categories = [];
         $total = 0;
