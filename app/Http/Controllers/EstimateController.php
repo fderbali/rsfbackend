@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\EstimateUpdateRequest;
+use App\Jobs\SendEmailJob;
 use App\Models\Demand;
 use App\Models\Estimate;
 use App\Models\Training;
@@ -43,6 +44,12 @@ class EstimateController extends Controller
     public function update(EstimateUpdateRequest $estimateRequest, Estimate $estimate): \Illuminate\Http\JsonResponse
     {
         $estimate->update($estimateRequest->only(['status']));
+        $details = [
+            'recipient' => $estimate->demand->training->user->email,
+            'model' => $estimate,
+            'class' => 'App\Mail\EstimateUpdated'
+        ];
+        dispatch(new SendEmailJob($details));
         return response()->json($estimate);
     }
 
