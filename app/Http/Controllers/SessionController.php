@@ -50,7 +50,9 @@ class SessionController extends Controller
         $trainings = Training::Where('user_id', auth('sanctum')->user()->id)
             ->whereHas('sessions')
             ->get()
-            ->load(['sessions', 'sessions.user']);
+            ->load(['sessions' => function($q) {
+                $q->orderBy('start', 'asc');
+            }, 'sessions.user']);
         return response()->json($trainings);
     }
 }
