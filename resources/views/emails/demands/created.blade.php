@@ -19,7 +19,7 @@
 <p>Status of the request : {{ $demand->status }}
 
 <br>
-@component('mail::button', ['url' => 'http://localhost:8080/received-demands'])
+@component('mail::button', ['url' => 'https://rsf.fahmiderbali.com/received-demands'])
 Consultez votre demande en ligne!<br>
 View your request online!
 

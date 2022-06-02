@@ -23,7 +23,7 @@
 <p>Price (tax included) : {{ $estimate->price }} $CAD</p>
 <br>
 
-@component('mail::button', ['url' => 'http://localhost:8080/received-estimates'])
+@component('mail::button', ['url' => 'https://rsf.fahmiderbali.com/received-estimates'])
     Consulter et/ou payer votre devis en ligne<br>
     View and/or pay your estimate online
 @endcomponent

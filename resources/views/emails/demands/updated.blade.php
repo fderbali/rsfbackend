@@ -19,7 +19,7 @@
 <p>Status of the request : {{ $demand->status == 'confirmed' ? 'confirmed' : 'cancelled' }}</p>
 <br>
 
-@component('mail::button', ['url' => 'http://localhost:8080/sent-demands'])
+@component('mail::button', ['url' => 'https://rsf.fahmiderbali.com/sent-demands'])
     Consulter votre demande en ligne<br>
     View your request online
 

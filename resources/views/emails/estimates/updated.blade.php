@@ -22,7 +22,7 @@
 <p>Status of the estimate : {{ $estimate->status == 'confirmed' ? 'confirmed' : 'cancelled' }}</p>
 <br>
 
-@component('mail::button', ['url' => 'http://localhost:8080/sent-estimates'])
+@component('mail::button', ['url' => 'https://rsf.fahmiderbali.com/sent-estimates'])
     Consulter le devis en ligne<br>
     View the estimate online
 @endcomponent

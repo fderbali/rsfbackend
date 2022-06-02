@@ -19,7 +19,7 @@
 <p>Total price : {{ $order->price }} $CAD</p>
 <br>
 
-@component('mail::button', ['url' => 'http://localhost:8080/form-session?order='.$order->id])
+@component('mail::button', ['url' => 'https://rsf.fahmiderbali.com/form-session?order='.$order->id])
 Céduler les séances pour cette formation.<br>
 Schedule the sessions for this training.
 @endcomponent
