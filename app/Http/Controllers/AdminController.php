@@ -49,7 +49,7 @@ class AdminController extends Controller
         $stats['Total devis'] = $results[0]->nbTotalEstimates;
         $results = DB::select(DB::raw("SELECT COUNT(*) AS nbEstimatesCancelled FROM estimates WHERE status = 'cancelled'"));
         $stats['Devis annulés'] = $results[0]->nbEstimatesCancelled;
-        $results = DB::select(DB::raw("SELECT COUNT(*) AS nbEstimatesConfirmed FROM estimates WHERE status = 'confirmed'"));
+        $results = DB::select(DB::raw("SELECT COUNT(*) AS nbEstimatesConfirmed FROM estimates WHERE status = 'paid'"));
         $stats['Devis acceptés'] = $results[0]->nbEstimatesConfirmed;
         foreach ($stats as $categ => $stat) {
             $categories[] = [$categ => $stat];
